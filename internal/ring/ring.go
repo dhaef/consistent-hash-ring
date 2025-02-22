@@ -102,7 +102,7 @@ func (c ConsistentHashRing) GetNode(key string) (string, error) {
 		}
 
 		// wrap around to the first node
-		if idx == len(c.SortedKeys) {
+		if idx == len(c.SortedKeys)-1 {
 			node = c.SortedKeys[0]
 		}
 	}
