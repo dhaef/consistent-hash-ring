@@ -23,7 +23,7 @@ func Hash(key string, denominator int) (int, error) {
 
 	bigInt := md5ToBigInt(hash)
 
-	_, node := new(big.Int).DivMod(bigInt, big.NewInt(20), new(big.Int))
+	_, node := new(big.Int).DivMod(bigInt, big.NewInt(int64(denominator)), new(big.Int))
 
 	if !node.IsInt64() {
 		return 0, fmt.Errorf("value is too large to be int64")

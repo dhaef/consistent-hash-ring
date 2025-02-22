@@ -201,4 +201,14 @@ func TestGetNode(t *testing.T) {
 		t.Errorf("expected node to be %v got %v", buildNodeId(nodeThreeId), err.Error())
 	}
 
+	keyThree := "a4a2a13a-5582-4666-a5b6-6958da9fcd53"
+	node, err = ring.GetNode(keyThree)
+	if err != nil {
+		t.Errorf("expected err to be nil got %v", err.Error())
+	}
+
+	if node != buildNodeId(nodeOneId) {
+		t.Errorf("expected node to be %v got %v", buildNodeId(nodeOneId), err.Error())
+	}
+
 }

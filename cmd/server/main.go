@@ -3,11 +3,18 @@ package main
 import (
 	"consistent-hash-ring/internal/db"
 	"consistent-hash-ring/internal/model"
+	"consistent-hash-ring/internal/ring"
 	"fmt"
 )
 
+var nodeToDb map[string]db.Database
+var r ring.ConsistentHashRing
+
 func main() {
-	nodes := []db.Database{}
+	nodeToDb := map[string]db.Database{}
+	r := ring.NewConsistentHasRing(10)
+
+	// nodes := []db.Database{}
 	for i := 1; i <= 4; i++ {
 		id := fmt.Sprintf("node-%d", i)
 		d := db.NewDatabase(id)
@@ -22,9 +29,9 @@ func main() {
 			fmt.Println("failed to setup node: "+id, err.Error())
 		}
 
-		nodes = append(nodes, d)
+		// nodes = append(nodes, d)
 	}
-	fmt.Println(nodes)
+	// fmt.Println(nodes)
 
 	// itemId := "123"
 	// value := "someKey"
