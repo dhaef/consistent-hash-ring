@@ -57,7 +57,7 @@ func TestAddingNodeAtTakenPosition(t *testing.T) {
 		t.Errorf("expected ring[5] to be %v got %v", buildNodeId(nodeOneId), ring.Ring[5])
 	}
 
-	err := ring.AddNode(nodeOneId)
+	_, err := ring.AddNode(nodeOneId)
 
 	if err == nil {
 		t.Error("expected adding a node at a taken position to return an error")

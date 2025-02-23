@@ -6,12 +6,12 @@ import (
 )
 
 type Item struct {
-	Id    string
-	Value string
+	Id    string `json:"id"`
+	Value string `json:"value"`
 }
 
 func CreateItemsTable(conn *sql.DB) error {
-	_, err := conn.Exec(`create table items(
+	_, err := conn.Exec(`create table if not exists items(
         id text NOT NULL,
         value text,
         PRIMARY KEY (id)

@@ -1,7 +1,6 @@
 package hash
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -42,8 +41,16 @@ func TestNodeHash(t *testing.T) {
 	nodeThreePosition, _ := Hash(nodeThree, ringSize)
 	nodeFourPosition, _ := Hash(nodeFour, ringSize)
 
-	fmt.Println(nodeOnePosition)
-	fmt.Println(nodeTwoPosition)
-	fmt.Println(nodeThreePosition)
-	fmt.Println(nodeFourPosition)
+	if nodeOnePosition > ringSize {
+		t.Errorf("expected nodeOnePosition to be less than %v got %v", ringSize, nodeOnePosition)
+	}
+	if nodeTwoPosition > ringSize {
+		t.Errorf("expected nodeTwoPosition to be less than %v got %v", ringSize, nodeTwoPosition)
+	}
+	if nodeThreePosition > ringSize {
+		t.Errorf("expected nodeThreePosition to be less than %v got %v", ringSize, nodeThreePosition)
+	}
+	if nodeFourPosition > ringSize {
+		t.Errorf("expected nodeFourPosition to be less than %v got %v", ringSize, nodeFourPosition)
+	}
 }

@@ -29,22 +29,22 @@ func buildNodeId(id string) string {
 	return id + "_node"
 }
 
-func (c *ConsistentHashRing) AddNode(id string) error {
+func (c *ConsistentHashRing) AddNode(id string) (string, error) {
 	nodeId := buildNodeId(id)
 	position, err := hash.Hash(nodeId, c.Size)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	if _, ok := c.Ring[position]; ok {
-		return fmt.Errorf("a node at position %v already exists", position)
+		return "", fmt.Errorf("a node at position %v already exists", position)
 	}
 
 	c.Ring[position] = nodeId
 	c.SortedKeys = append(c.SortedKeys, position)
 	slices.Sort(c.SortedKeys)
 
-	return nil
+	return nodeId, nil
 }
 
 func removeIndex(s []int, index int) []int {
@@ -67,7 +67,7 @@ func findIndex(s []int, value int) int {
 }
 
 func (c *ConsistentHashRing) RemoveNode(id string) error {
-	nodeId := id + "_node"
+	nodeId := buildNodeId(id)
 	position, err := hash.Hash(nodeId, c.Size)
 	if err != nil {
 		return err
